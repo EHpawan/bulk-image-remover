@@ -26,7 +26,7 @@ st.markdown("""
     <h2>Best AI batch background removal tool for transparent PNG layouts</h2>
     <p>Keywords: bulk remove bg, remove background from multiple images, automatic transparent background maker, e-commerce image editor, white background converter, batch png extractor, free ai cutout tool.</p>
 </div>
-""", unsafe_transform_html=True)
+""", unsafe_allow_html=True)
 
 # -------------------------------------------------------------------
 # 3. PUBLIC FRONTEND INTERFACE DESIGN
