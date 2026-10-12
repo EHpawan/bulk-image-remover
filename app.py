@@ -12,19 +12,22 @@ st.set_page_config(
     menu_items={
         'Get Help': 'mailto:pawan990013@gmail.com',
         'Report a bug': 'mailto:pawan990013@gmail.com',
-        'About': "# Free Bulk Background Remover\nOptimize and clear image backgrounds instantly with our advanced machine learning model framework. Fully optimized for high-res e-commerce product listings."
+        'About': "# Free Bulk Background Remover\nOptimize and clear image backgrounds instantly with our advanced machine learning model framework."
     }
 )
 
 # -------------------------------------------------------------------
-# 2. GOOGLE SEARCH BOT INDEXING BOOSTER (Hidden semantic HTML blocks)
+# 2. GOOGLE SEARCH BOT INDEXING BOOSTER & OWNERSHIP VERIFICATION
 # -------------------------------------------------------------------
-# This allows Google Crawlers to easily read your core targeted keywords 
 st.markdown("""
 <div style="display:none;">
+    <!-- Google Ownership Tag Verification Link -->
+    <meta name="google-site-verification" content="<meta name="google-site-verification" content="OmnzJKMulfltbRlh5AOEMw1UGUb3bFREJdMJNbCV_6Q" />" />
+    
+    <!-- Semantic Search Keywords for Google Crawler Bot -->
     <h1>Free Bulk Background Remover Online</h1>
     <h2>Best AI batch background removal tool for transparent PNG layouts</h2>
-    <p>Keywords: bulk remove bg, remove background from multiple images, automatic transparent background maker, e-commerce image editor, white background converter, batch png extractor, free ai cutout tool.</p>
+    <p>Keywords: bulk remove bg, remove background from multiple images, automatic transparent background maker, e-commerce image editor, free ai cutout tool.</p>
 </div>
 """, unsafe_allow_html=True)
 
