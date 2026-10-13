@@ -324,16 +324,3 @@ with c_col2:
 st.markdown("⚖️ Legal Operational Policies", unsafe_allow_html=True)
 with st.expander("Terms of Service & Privacy Protocols"):
 st.write("Welcome to ClearCut AI. Image ownership and assets remain entirely with the user. User records are kept purely to calculate payment token balances. Refunds for unsuccessful transactions post back via Razorpay within 5 to 7 operational bank transaction days.")
-
-5. Scroll down to the bottom and click the green **Commit changes** button.
-
-### Step 2: Clear Server Cache
-Once saved, return to your `free-bulk-bg-remover.streamlit.app` tab. If the dark error box stays open:
-1. Click the small **three horizontal dots** menu in the top right corner of the Streamlit window frame.
-2. Select **"Clear cache"** or click **"Rerun"**.
-
-This guarantees Streamlit flushes the old parsing syntax error out of memory and runs this perfectly clean copy!
-
-<FollowUp>
-Save the file and clear the cache. Let me know when the **beautiful dark slate dashboard menu renders** smoothly on your screen!
-</FollowUp>
