@@ -21,7 +21,7 @@ st.set_page_config(
 st.markdown("""
 <div style="display:none;">
     <!-- Google Ownership Tag Verification Link -->
-    <meta name="google-site-verification" content="PASTE_YOUR_LONG_GOOGLE_STRING_HERE" />
+    <meta name="google-site-verification" content="OmnzJKMulfltbRlh5AOEMw1UGUb3bFREJdMJNbCV_6Q" />
     
     <!-- Semantic Search Keywords for Google Crawler Bot -->
     <h1>Free Bulk Background Remover Online</h1>
