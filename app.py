@@ -32,14 +32,14 @@ st.markdown("""
     
     /* Clean Slate-Grey Theme Overrides */
     html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
-        background-color: #1e293b !important; /* Premium Slate Grey */
+        background-color: #1e293b !important;
         font-family: 'Inter', sans-serif;
         color: #f8fafc !important;
     }
     
     /* Sidebar Aesthetics */
     [data-testid="stSidebar"] {
-        background-color: #0f172a !important; /* Rich Dark Grey Contrast */
+        background-color: #0f172a !important;
         border-right: 1px solid rgba(255, 255, 255, 0.05);
     }
     
@@ -163,7 +163,7 @@ with st.sidebar:
                             st.session_state.is_logged_in = True
                             st.session_state.user_email = auth_res.user.email
                             st.session_state.user_id = auth_res.user.id
-                            time.sleep(1.5) # Wait for Supabase trigger row logic to execute
+                            time.sleep(1.5)
                             st.session_state.account_credits = fetch_user_credits(auth_res.user.id)
                             st.toast("Profile initialized successfully!")
                             time.sleep(0.5)
@@ -171,7 +171,6 @@ with st.sidebar:
                     except Exception:
                         st.error("Registration failed. Email might already exist.")
     else:
-        # User is authenticated successfully
         st.session_state.account_credits = fetch_user_credits(st.session_state.user_id)
         st.markdown(f"""
         <div style='background:rgba(255,255,255,0.04); padding:20px; border-radius:14px; border:1px solid rgba(255,255,255,0.08);'>
@@ -207,10 +206,20 @@ st.markdown("""
 # -------------------------------------------------------------------
 st.subheader("🚀 Active Image Upload Workspace")
 
-# Information strip informing visitors about the 1-time free allowance parameters
 if not st.session_state.is_logged_in and not st.session_state.has_used_free_cookie:
     st.info("🎁 **Free Guest Allowance Active:** You can upload **1 image** to evaluate our AI tool before creating an account.")
 elif not st.session_state.is_logged_in and st.session_state.has_used_free_cookie:
     st.error("🔒 **Guest Limit Reached:** You have already processed your single free image. Please **Sign In** or **Create an Account** via the sidebar to continue using the service.")
 
 uploaded_files = st.file_uploader(
+    "Drop target batch media assets below:", 
+    type=["png", "jpg", "jpeg"], 
+    accept_multiple_files=True
+)
+
+if uploaded_files:
+    num_files = len(uploaded_files)
+    st.markdown(f"📦 Files currently in staging queue buffer: **{num_files} file(s)**")
+    
+    can_process = False
+    
