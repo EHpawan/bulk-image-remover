@@ -158,7 +158,7 @@ with st.sidebar:
                     st.error("Password must be at least 6 characters long.")
                 else:
                     try:
-                        auth_res = supabase.auth.fancy_sign_up = supabase.auth.sign_up({"email": signup_email, "password": signup_pass})
+                        auth_res = supabase.auth.sign_up({"email": signup_email, "password": signup_pass})
                         if auth_res.user:
                             st.session_state.is_logged_in = True
                             st.session_state.user_email = auth_res.user.email
@@ -213,60 +213,4 @@ if not st.session_state.is_logged_in and not st.session_state.has_used_free_cook
 elif not st.session_state.is_logged_in and st.session_state.has_used_free_cookie:
     st.error("🔒 **Guest Limit Reached:** You have already processed your single free image. Please **Sign In** or **Create an Account** via the sidebar to continue using the service.")
 
-uploaded_files = st.file_uploader("Drop target batch media assets below (PNG, JPG, JPEG formats supported):",
-type=["png", "jpg", "jpeg"],
-accept_multiple_files=True
-)
-if uploaded_files:
-num_files = len(uploaded_files)
-st.markdown(f"📦 Files current staging queue buffer: {num_files} file(s)")
-can_process = False
-# CONDITION 1: User is completely logged out
-if not st.session_state.is_logged_in:
-if num_files > 1:
-st.error("🚨 Access Denied: Guest accounts are strictly capped at processing 1 single image. To execute batch actions or multiple files, you must create a profile and sign in.")
-elif st.session_state.has_used_free_cookie:
-st.error("🚨 Access Denied: Your single guest trial token has been fully consumed. Sign in via the sidebar to access more operations.")
-else:
-can_process = True # Allowed to extract exactly 1 image as a guest
-# CONDITION 2: User is securely logged in
-else:
-if num_files > st.session_state.account_credits:
-st.error(f"🚨 Balance Insufficient: Your queue requires {num_files} credits, but you only hold {st.session_state.account_credits} tokens. Select an upgrade pack below to top up your balance.")
-else:
-can_process = True # Allowed to run since premium account balances match requirements
-# Core Extraction Trigger Button Component Layout
-if st.button("🔥 Run Neural Background Extraction", disabled=not can_process, use_container_width=True):
-progress_bar = st.progress(0)
-status_text = st.empty()
-for index, file in enumerate(uploaded_files):
-status_text.text(f"Isolating targets inside asset image {index+1} of {num_files}...")
-time.sleep(0.6)
-progress_bar.progress(int(((index + 1) / num_files) * 100))
-status_text.empty()
-st.balloons()
-st.success("🎉 Background removal completed! Clean isolated target frames compiled successfully.")
-# Balance handling calculations update rules
-if st.session_state.is_logged_in:
-# Deduct credit token rows safely inside the live Supabase balance sheet
-new_balance = st.session_state.account_credits - num_files
-supabase.table("user_profiles").update({"credits": new_balance}).eq("id", st.session_state.user_id).execute()
-else:
-# Lock out further guest operations if handled outside active profiles
-st.session_state.has_used_free_cookie = True
-time.sleep(1.5)
-st.rerun()
-# -------------------------------------------------------------------
-# 7. REGULATORY COMPLIANCE FOOTER
-# -------------------------------------------------------------------
-st.markdown("<br><br><hr style='border-color:rgba(255,255,255,0.08);'>", unsafe_allow_html=True)
-c_col1, c_col2 = st.columns(2)
-
-with c_col1:
-    st.markdown("<h5 style='color:white;font-weight:600;margin-bottom:5px;'>📬 Customer Operations Verification Support</h5>", unsafe_allow_html=True)
-    st.info("📧 Invoicing Admin Email: **pawan990013@gmail.com**")
-
-with c_col2:
-    st.markdown("<h5 style='color:white;font-weight:600;margin-bottom:5px;'>⚖️ Legal Operational Policies</h5>", unsafe_allow_html=True)
-    with st.expander("Terms of Service & Privacy Protocols"):
-        st.write("Welcome to ClearCut AI. Image ownership and assets remain entirely with the user. User records are kept purely to calculate payment token balances. Refunds for unsuccessful transactions post back via Razorpay within 5 to 7 operational bank transaction days.")
+uploaded_files = st.file_uploader(
