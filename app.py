@@ -255,9 +255,8 @@ st.rerun()
 
 -------------------------------------------------------------------
 
-st.markdown("
-
-", unsafe_allow_html=True)
+st.markdown(
+, unsafe_allow_html=True)
 st.markdown("⚡ Instant Credit Balance Top-Up Tiers", unsafe_allow_html=True)
 p_col1, p_col2, p_col3 = st.columns(3)
 with p_col1:
