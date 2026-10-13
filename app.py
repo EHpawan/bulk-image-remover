@@ -255,18 +255,16 @@ st.rerun()
 -------------------------------------------------------------------
 
 
-7. CLEAN UNIFORM REFILL PRICING MATRIX TABLES
+# -------------------------------------------------------------------
+# 7. CLEAN UNIFORM REFILL PRICING MATRIX TABLES 
+# -------------------------------------------------------------------
+st.markdown("<br><hr style='border-color:rgba(255,255,255,0.08);'><br>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align:center;font-weight:800;color:white;'>⚡ Instant Credit Balance Top-Up Tiers</h2>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center;color:#94a3b8;margin-bottom:30px;font-size:14px;'>Upgrade your available token quotas instantly using high-speed local UPI payment apps or cards.</p>", unsafe_allow_html=True)
 
-
--------------------------------------------------------------------
-
-st.markdown(
-
-", unsafe_allow_html=True)
-st.markdown("⚡ Instant Credit Balance Top-Up Tiers", unsafe_allow_html=True)
 p_col1, p_col2, p_col3 = st.columns(3)
+
 with p_col1:
-st.markdown("""
 
 
 🪵 Pro Starter
