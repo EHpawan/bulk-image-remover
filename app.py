@@ -19,7 +19,7 @@ st.set_page_config(
 # -------------------------------------------------------------------
 # 2. GOOGLE SEARCH BOT INDEXING BOOSTER & OWNERSHIP VERIFICATION
 # -------------------------------------------------------------------
-st.markdown("""
+st.markdown(""" 
 <div style="display:none;">
     <!-- Google Ownership Tag Verification Link -->
     <meta name="google-site-verification" content="<meta name="google-site-verification" content="OmnzJKMulfltbRlh5AOEMw1UGUb3bFREJdMJNbCV_6Q" />" /> 
