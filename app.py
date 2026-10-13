@@ -260,7 +260,7 @@ st.rerun()
 
 -------------------------------------------------------------------
 
-st.markdown("
+st.markdown(
 
 ", unsafe_allow_html=True)
 st.markdown("⚡ Instant Credit Balance Top-Up Tiers", unsafe_allow_html=True)
