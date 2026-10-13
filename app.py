@@ -222,3 +222,9 @@ if uploaded_files:
         elif st.session_state.has_used_free_cookie:
             st.error("🚨 **Access Denied:** Your single guest trial token has been fully consumed.")
         else:
+            if st.session_state.is_logged_in:
+            # Deduct credit token rows safely inside the live Supabase balance sheet
+            new_balance = st.session_state.account_credits - num_files
+            supabase.table("user_profiles").update({"credits": new_balance}).eq("id", st.session_state.user_id).execute()
+        else:
+            st.session_state.has_used_free_cookie = True
