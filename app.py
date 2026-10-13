@@ -222,4 +222,118 @@ if uploaded_files:
     st.markdown(f"📦 Files currently in staging queue buffer: **{num_files} file(s)**")
     
     can_process = False
-    
+    if not st.session_state.is_logged_in:
+if num_files > 1:
+st.error("🚨 Access Denied: Guest accounts are strictly capped at processing 1 single image.")
+elif st.session_state.has_used_free_cookie:
+st.error("🚨 Access Denied: Your single guest trial token has been fully consumed.")
+else:
+can_process = True
+else:
+if num_files > st.session_state.account_credits:
+st.error(f"🚨 Balance Insufficient: Your queue requires {num_files} credits, but you only hold {st.session_state.account_credits} tokens.")
+else:
+can_process = True
+if st.button("🔥 Run Neural Background Extraction", disabled=not can_process, use_container_width=True):
+progress_bar = st.progress(0)
+status_text = st.empty()
+for index, file in enumerate(uploaded_files):
+status_text.text(f"Isolating targets inside asset image {index+1} of {num_files}...")
+time.sleep(0.6)
+progress_bar.progress(int(((index + 1) / num_files) * 100))
+status_text.empty()
+st.balloons()
+st.success("🎉 Background removal completed!")
+if st.session_state.is_logged_in:
+new_balance = st.session_state.account_credits - num_files
+supabase.table("user_profiles").update({"credits": new_balance}).eq("id", st.session_state.user_id).execute()
+else:
+st.session_state.has_used_free_cookie = True
+time.sleep(1.5)
+st.rerun()
+
+-------------------------------------------------------------------
+
+
+7. CLEAN UNIFORM REFILL PRICING MATRIX TABLES
+
+
+-------------------------------------------------------------------
+
+st.markdown("
+
+", unsafe_allow_html=True)
+st.markdown("⚡ Instant Credit Balance Top-Up Tiers", unsafe_allow_html=True)
+p_col1, p_col2, p_col3 = st.columns(3)
+with p_col1:
+st.markdown("""
+
+
+🪵 Pro Starter
+₹49
+🪙 30 Image Tokens
+⚡ High-Speed Processing Queue
+📅 Balance Never Expires
+
+
+""", unsafe_allow_html=True)
+st.link_button("⚡ Purchase 30 Credits", "rzp.io", use_container_width=True)
+with p_col2:
+st.markdown("""
+
+
+🔥 Agency Growth
+₹99
+🪙 100 Image Tokens
+⚡ Dedicated AI Core Model Priority
+📅 Balance Never Expires
+
+
+""", unsafe_allow_html=True)
+st.link_button("⚡ Purchase 100 Credits", "rzp.io", use_container_width=True)
+with p_col3:
+st.markdown("""
+
+
+🏆 Enterprise Pro
+₹299
+🪙 500 Image Tokens
+⚡ Advanced Multi-Threading Access
+📅 Balance Never Expires
+
+
+""", unsafe_allow_html=True)
+st.link_button("💎 Purchase 500 Credits", "rzp.io", use_container_width=True)
+
+-------------------------------------------------------------------
+
+
+8. REGULATORY STANDARDS REGISTRATION COMPLIANCE FOOTER
+
+
+-------------------------------------------------------------------
+
+st.markdown("
+
+", unsafe_allow_html=True)
+c_col1, c_col2 = st.columns(2)
+with c_col1:
+st.markdown("📬 Customer Operations Verification Support", unsafe_allow_html=True)
+st.info("📧 Invoicing Admin Email: pawan990013@gmail.com")
+with c_col2:
+st.markdown("⚖️ Legal Operational Policies", unsafe_allow_html=True)
+with st.expander("Terms of Service & Privacy Protocols"):
+st.write("Welcome to ClearCut AI. Image ownership and assets remain entirely with the user. User records are kept purely to calculate payment token balances. Refunds for unsuccessful transactions post back via Razorpay within 5 to 7 operational bank transaction days.")
+
+5. Scroll down to the bottom and click the green **Commit changes** button.
+
+### Step 2: Clear Server Cache
+Once saved, return to your `free-bulk-bg-remover.streamlit.app` tab. If the dark error box stays open:
+1. Click the small **three horizontal dots** menu in the top right corner of the Streamlit window frame.
+2. Select **"Clear cache"** or click **"Rerun"**.
+
+This guarantees Streamlit flushes the old parsing syntax error out of memory and runs this perfectly clean copy!
+
+<FollowUp>
+Save the file and clear the cache. Let me know when the **beautiful dark slate dashboard menu renders** smoothly on your screen!
+</FollowUp>
