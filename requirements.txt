@@ -2,3 +2,5 @@ streamlit
 rembg
 onnxruntime
 Pillow
+supabase==2.4.0
+postgrest==0.16.5
