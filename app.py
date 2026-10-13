@@ -307,9 +307,8 @@ st.link_button("💎 Purchase 500 Credits", "rzp.io", use_container_width=True)
 
 -------------------------------------------------------------------
 
-st.markdown("
-
-", unsafe_allow_html=True)
+st.markdown(
+, unsafe_allow_html=True)
 c_col1, c_col2 = st.columns(2)
 with c_col1:
 st.markdown("📬 Customer Operations Verification Support", unsafe_allow_html=True)
