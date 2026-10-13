@@ -263,62 +263,55 @@ st.markdown("<h2 style='text-align:center;font-weight:800;color:white;'>⚡ Inst
 st.markdown("<p style='text-align:center;color:#94a3b8;margin-bottom:30px;font-size:14px;'>Upgrade your available token quotas instantly using high-speed local UPI payment apps or cards.</p>", unsafe_allow_html=True)
 
 p_col1, p_col2, p_col3 = st.columns(3)
-
 with p_col1:
+    st.markdown("""
+    <div class="price-card">
+        <div>
+            <div class="plan-title">Pro Starter</div>
+            <div class="plan-cost">₹49</div>
+            <div class="plan-desc">30 Image Tokens<br>High-Speed Processing Queue<br>Balance Never Expires</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.link_button("Purchase 30 Credits", "https://rzp.io", use_container_width=True)
 
-
-🪵 Pro Starter
-₹49
-🪙 30 Image Tokens
-⚡ High-Speed Processing Queue
-📅 Balance Never Expires
-
-
-""", unsafe_allow_html=True)
-st.link_button("⚡ Purchase 30 Credits", "rzp.io", use_container_width=True)
 with p_col2:
-st.markdown("""
+    st.markdown("""
+    <div class="price-card" style="border: 2px solid #3b82f6; background: rgba(59, 130, 246, 0.04);">
+        <div>
+            <div class="plan-title" style="color:#3b82f6;">Agency Growth</div>
+            <div class="plan-cost">₹99</div>
+            <div class="plan-desc">100 Image Tokens<br>Dedicated AI Core Model Priority<br>Balance Never Expires</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.link_button("Purchase 100 Credits", "https://rzp.io", use_container_width=True)
 
-
-🔥 Agency Growth
-₹99
-🪙 100 Image Tokens
-⚡ Dedicated AI Core Model Priority
-📅 Balance Never Expires
-
-
-""", unsafe_allow_html=True)
-st.link_button("⚡ Purchase 100 Credits", "rzp.io", use_container_width=True)
 with p_col3:
-st.markdown("""
+    st.markdown("""
+    <div class="price-card">
+        <div>
+            <div class="plan-title">Enterprise Pro</div>
+            <div class="plan-cost">₹299</div>
+            <div class="plan-desc">500 Image Tokens<br>Advanced Multi-Threading Access<br>Balance Never Expires</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.link_button("Purchase 500 Credits", "https://rzp.io", use_container_width=True)
 
-
-🏆 Enterprise Pro
-₹299
-🪙 500 Image Tokens
-⚡ Advanced Multi-Threading Access
-📅 Balance Never Expires
-
-
-""", unsafe_allow_html=True)
-st.link_button("💎 Purchase 500 Credits", "rzp.io", use_container_width=True)
-
--------------------------------------------------------------------
-
-
-8. REGULATORY STANDARDS REGISTRATION COMPLIANCE FOOTER
-
-
--------------------------------------------------------------------
-
-st.markdown("
-
-", unsafe_allow_html=True)
+# -------------------------------------------------------------------
+# 8. REGULATORY STANDARDS REGISTRATION COMPLIANCE FOOTER
+# -------------------------------------------------------------------
+st.markdown("<br><br><hr style='border-color:rgba(255,255,255,0.08);'>", unsafe_allow_html=True)
 c_col1, c_col2 = st.columns(2)
+
 with c_col1:
-st.markdown("📬 Customer Operations Verification Support", unsafe_allow_html=True)
-st.info("📧 Invoicing Admin Email: pawan990013@gmail.com")
+    st.markdown("<h5 style='color:white;font-weight:600;margin-bottom:5px;'>Customer Operations Verification Support</h5>", unsafe_allow_html=True)
+    st.info("Email: pawan990013@gmail.com")
+
 with c_col2:
-st.markdown("⚖️ Legal Operational Policies", unsafe_allow_html=True)
+    st.markdown("<h5 style='color:white;font-weight:600;margin-bottom:5px;'>Legal Operational Policies</h5>", unsafe_allow_html=True)
+    with st.expander("Terms of Service & Privacy Protocols"):
+        st.write("Welcome to ClearCut AI. Image ownership and assets remain entirely with the user. User records are kept purely to calculate payment token balances. Refunds for unsuccessful transactions post back via Razorpay within 5 to 7 operational bank transaction days.")
 with st.expander("Terms of Service & Privacy Protocols"):
 st.write("Welcome to ClearCut AI. Image ownership and assets remain entirely with the user. User records are kept purely to calculate payment token balances. Refunds for unsuccessful transactions post back via Razorpay within 5 to 7 operational bank transaction days.")
