@@ -25,19 +25,16 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom injection for professional grey aesthetics, uniform padding, and clean grid borders
 st.markdown("""
 <style>
     @import url('https://googleapis.com');
     
-    /* Clean Slate-Grey Theme Overrides */
     html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
         background-color: #1e293b !important;
         font-family: 'Inter', sans-serif;
         color: #f8fafc !important;
     }
     
-    /* Sidebar Aesthetics */
     [data-testid="stSidebar"] {
         background-color: #0f172a !important;
         border-right: 1px solid rgba(255, 255, 255, 0.05);
@@ -48,7 +45,6 @@ st.markdown("""
         max-width: 1100px !important;
     }
     
-    /* Pro Corporate Hero Section */
     .pro-hero {
         background: linear-gradient(135deg, rgba(51, 65, 85, 0.6) 0%, rgba(30, 41, 59, 0.8) 100%);
         border: 1px solid rgba(255, 255, 255, 0.08);
@@ -72,7 +68,6 @@ st.markdown("""
         margin-bottom: 20px;
     }
     
-    /* Uniform Grid Product Pricing Box Layout */
     .price-card {
         background: rgba(30, 41, 59, 0.4);
         border: 1px solid rgba(255, 255, 255, 0.06);
@@ -91,7 +86,6 @@ st.markdown("""
     .plan-cost { font-size: 38px; font-weight: 800; color: #ffffff; margin: 10px 0; }
     .plan-desc { font-size: 13px; color: #cbd5e1; line-height: 1.6; }
     
-    /* Button Padding Overrides */
     .stButton>button {
         border-radius: 10px !important;
         font-weight: 600 !important;
@@ -113,7 +107,6 @@ if 'account_credits' not in st.session_state:
 if 'has_used_free_cookie' not in st.session_state:
     st.session_state.has_used_free_cookie = False
 
-# Helper module to instantly track remaining credit balances from table rows
 def fetch_user_credits(user_id):
     try:
         res = supabase.table("user_profiles").select("credits").eq("id", user_id).single().execute()
@@ -222,12 +215,14 @@ if uploaded_files:
     st.markdown(f"📦 Files currently in staging queue buffer: **{num_files} file(s)**")
     
     can_process = False
+    
     if not st.session_state.is_logged_in:
-if num_files > 1:
-st.error("🚨 Access Denied: Guest accounts are strictly capped at processing 1 single image.")
-elif st.session_state.has_used_free_cookie:
-st.error("🚨 Access Denied: Your single guest trial token has been fully consumed.")
-else:
+        if num_files > 1:
+            st.error("🚨 **Access Denied:** Guest accounts are strictly capped at processing **1 single image**.")
+        elif st.session_state.has_used_free_cookie:
+            st.error("🚨 **Access Denied:** Your single guest trial token has been fully consumed.")
+        else:
+Use code with caution.
 can_process = True
 else:
 if num_files > st.session_state.account_credits:
@@ -255,63 +250,72 @@ st.rerun()
 -------------------------------------------------------------------
 
 
-# -------------------------------------------------------------------
-# 7. CLEAN UNIFORM REFILL PRICING MATRIX TABLES 
-# -------------------------------------------------------------------
-st.markdown("<br><hr style='border-color:rgba(255,255,255,0.08);'><br>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align:center;font-weight:800;color:white;'>⚡ Instant Credit Balance Top-Up Tiers</h2>", unsafe_allow_html=True)
-st.markdown("<p style='text-align:center;color:#94a3b8;margin-bottom:30px;font-size:14px;'>Upgrade your available token quotas instantly using high-speed local UPI payment apps or cards.</p>", unsafe_allow_html=True)
+7. CLEAN UNIFORM REFILL PRICING MATRIX TABLES
 
+
+-------------------------------------------------------------------
+
+st.markdown("
+
+", unsafe_allow_html=True)
+st.markdown("⚡ Instant Credit Balance Top-Up Tiers", unsafe_allow_html=True)
 p_col1, p_col2, p_col3 = st.columns(3)
 with p_col1:
-    st.markdown("""
-    <div class="price-card">
-        <div>
-            <div class="plan-title">Pro Starter</div>
-            <div class="plan-cost">₹49</div>
-            <div class="plan-desc">30 Image Tokens<br>High-Speed Processing Queue<br>Balance Never Expires</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    st.link_button("Purchase 30 Credits", "https://rzp.io", use_container_width=True)
+st.markdown("""
 
+
+Pro Starter
+₹49
+30 Image Tokens
+High-Speed Processing Queue
+Balance Never Expires
+
+
+""", unsafe_allow_html=True)
+st.link_button("⚡ Purchase 30 Credits", "rzp.io", use_container_width=True)
 with p_col2:
-    st.markdown("""
-    <div class="price-card" style="border: 2px solid #3b82f6; background: rgba(59, 130, 246, 0.04);">
-        <div>
-            <div class="plan-title" style="color:#3b82f6;">Agency Growth</div>
-            <div class="plan-cost">₹99</div>
-            <div class="plan-desc">100 Image Tokens<br>Dedicated AI Core Model Priority<br>Balance Never Expires</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    st.link_button("Purchase 100 Credits", "https://rzp.io", use_container_width=True)
+st.markdown("""
 
+
+Agency Growth
+₹99
+100 Image Tokens
+Dedicated AI Core Model Priority
+Balance Never Expires
+
+
+""", unsafe_allow_html=True)
+st.link_button("⚡ Purchase 100 Credits", "rzp.io", use_container_width=True)
 with p_col3:
-    st.markdown("""
-    <div class="price-card">
-        <div>
-            <div class="plan-title">Enterprise Pro</div>
-            <div class="plan-cost">₹299</div>
-            <div class="plan-desc">500 Image Tokens<br>Advanced Multi-Threading Access<br>Balance Never Expires</div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    st.link_button("Purchase 500 Credits", "https://rzp.io", use_container_width=True)
+st.markdown("""
 
-# -------------------------------------------------------------------
-# 8. REGULATORY STANDARDS REGISTRATION COMPLIANCE FOOTER
-# -------------------------------------------------------------------
-st.markdown("<br><br><hr style='border-color:rgba(255,255,255,0.08);'>", unsafe_allow_html=True)
+
+Enterprise Pro
+₹299
+500 Image Tokens
+Advanced Multi-Threading Access
+Balance Never Expires
+
+
+""", unsafe_allow_html=True)
+st.link_button("💎 Purchase 500 Credits", "rzp.io", use_container_width=True)
+
+-------------------------------------------------------------------
+
+
+8. REGULATORY STANDARDS REGISTRATION COMPLIANCE FOOTER
+
+
+-------------------------------------------------------------------
+
+st.markdown("
+
+", unsafe_allow_html=True)
 c_col1, c_col2 = st.columns(2)
-
 with c_col1:
-    st.markdown("<h5 style='color:white;font-weight:600;margin-bottom:5px;'>Customer Operations Verification Support</h5>", unsafe_allow_html=True)
-    st.info("Email: pawan990013@gmail.com")
-
+st.markdown("📬 Customer Operations Verification Support", unsafe_allow_html=True)
+st.info("📧 Invoicing Admin Email: pawan990013@gmail.com")
 with c_col2:
-    st.markdown("<h5 style='color:white;font-weight:600;margin-bottom:5px;'>Legal Operational Policies</h5>", unsafe_allow_html=True)
-    with st.expander("Terms of Service & Privacy Protocols"):
-        st.write("Welcome to ClearCut AI. Image ownership and assets remain entirely with the user. User records are kept purely to calculate payment token balances. Refunds for unsuccessful transactions post back via Razorpay within 5 to 7 operational bank transaction days.")
+st.markdown("⚖️ Legal Operational Policies", unsafe_allow_html=True)
 with st.expander("Terms of Service & Privacy Protocols"):
 st.write("Welcome to ClearCut AI. Image ownership and assets remain entirely with the user. User records are kept purely to calculate payment token balances. Refunds for unsuccessful transactions post back via Razorpay within 5 to 7 operational bank transaction days.")
