@@ -15,6 +15,7 @@ RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET", "")
 RAZORPAY_WEBHOOK_SECRET = os.environ.get("RAZORPAY_WEBHOOK_SECRET", "")
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
+SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY", "")
 
 PLANS = {
     "Starter": {"amount": 9900, "credits": 25, "label": "ClearCut Starter - 25 credits"},
@@ -23,9 +24,18 @@ PLANS = {
 }
 
 class CheckoutRequest(BaseModel):
-    user_id: str
-    email: EmailStr
     plan: Literal["Starter", "Pro", "Studio"]
+
+def authenticated_user(authorization: str):
+    if not authorization.startswith("Bearer "):
+        raise HTTPException(401, "Sign in required")
+    token = authorization.removeprefix("Bearer ").strip()
+    if not SUPABASE_URL or not SUPABASE_ANON_KEY:
+        raise HTTPException(503, "Supabase authentication is not configured")
+    response = requests.get(f"{SUPABASE_URL}/auth/v1/user", headers={"apikey": SUPABASE_ANON_KEY, "Authorization": f"Bearer {token}"}, timeout=15)
+    if response.status_code != 200:
+        raise HTTPException(401, "Invalid or expired session")
+    return response.json()
 
 def require_config():
     if not all([RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY]):
@@ -47,19 +57,20 @@ def health():
     return {"status": "ok"}
 
 @app.post("/create-payment-link")
-def create_payment_link(body: CheckoutRequest):
+def create_payment_link(body: CheckoutRequest, authorization: str = Header(default="")):
     require_config()
+    user = authenticated_user(authorization)
     plan = PLANS[body.plan]
     payload = {
         "amount": plan["amount"],
         "currency": "INR",
         "accept_partial": False,
         "description": plan["label"],
-        "customer": {"email": str(body.email)},
+        "customer": {"email": str(user.get("email", ""))},
         "notify": {"email": True, "sms": False},
         "reminder_enable": False,
         "notes": {
-            "user_id": body.user_id,
+            "user_id": user["id"],
             "plan": body.plan,
             "credits": str(plan["credits"]),
         },
