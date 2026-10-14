@@ -23,31 +23,35 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+declare
+  inserted_count integer;
 begin
   if p_plan not in ('Starter', 'Pro', 'Studio')
-     or p_credits not in (25, 100, 350)
-     or p_amount_paise not in (9900, 29900, 79900) then
+     or (p_plan = 'Starter' and (p_credits <> 25 or p_amount_paise <> 9900))
+     or (p_plan = 'Pro' and (p_credits <> 100 or p_amount_paise <> 29900))
+     or (p_plan = 'Studio' and (p_credits <> 350 or p_amount_paise <> 79900)) then
     raise exception 'Invalid plan payload';
   end if;
-
-  insert into public.user_profiles (id, credits, plan)
-  values (p_user_id, p_credits, p_plan)
-  on conflict (id) do update
-    set credits = coalesce(public.user_profiles.credits, 0) + excluded.credits,
-        plan = excluded.plan;
 
   insert into public.razorpay_fulfilled_payments
     (payment_link_id, user_id, plan, credits_added, amount_paise)
   values (p_payment_link_id, p_user_id, p_plan, p_credits, p_amount_paise)
   on conflict (payment_link_id) do nothing;
 
-  -- If already fulfilled, roll back the accidental second credit increment.
-  if not found then
-    update public.user_profiles
-      set credits = greatest(0, coalesce(credits, 0) - p_credits)
-      where id = p_user_id;
+  get diagnostics inserted_count = row_count;
+  if inserted_count = 0 then
     return jsonb_build_object('duplicate', true);
   end if;
+
+  update public.user_profiles
+    set credits = coalesce(credits, 0) + p_credits,
+        plan = p_plan
+    where id = p_user_id;
+
+  if not found then
+    raise exception 'User profile not found; transaction rolled back';
+  end if;
+
   return jsonb_build_object('duplicate', false, 'credits_added', p_credits);
 end;
 $$;
