@@ -29,7 +29,7 @@ supabase = get_supabase()
 PAYMENT_API_URL = st.secrets.get("PAYMENT_API_URL", os.getenv("PAYMENT_API_URL", "")).rstrip("/")
 
 for key, default in {
-    "logged_in": False, "email": "", "user_id": "", "credits": 0, "plan": "Free",
+    "logged_in": False, "email": "", "user_id": "", "access_token": "", "credits": 0, "plan": "Free",
     "guest_used": False, "last_payment_url": "",
 }.items():
     if key not in st.session_state:
@@ -89,6 +89,7 @@ def auth_box():
                             st.session_state.logged_in = True
                             st.session_state.email = user.email or email.strip()
                             st.session_state.user_id = user.id
+                            st.session_state.access_token = supabase.auth.get_session().access_token if supabase.auth.get_session() else ""
                             st.session_state.credits, st.session_state.plan = load_profile(user.id)
                             st.rerun()
                     except Exception as exc:
@@ -162,7 +163,8 @@ for col, plan in zip(cols, plans):
             try:
                 response = requests.post(
                     f"{PAYMENT_API_URL}/create-payment-link",
-                    json={"user_id": st.session_state.user_id, "email": st.session_state.email, "plan": plan["name"]},
+                    json={"plan": plan["name"]},
+                    headers={"Authorization": f"Bearer {st.session_state.access_token}"},
                     timeout=25,
                 )
                 response.raise_for_status()
