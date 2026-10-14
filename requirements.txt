@@ -3,3 +3,4 @@ rembg>=2.0.60,<3
 onnxruntime>=1.18,<2
 Pillow>=10,<13
 supabase>=2.4,<3
+requests>=2.32,<3
